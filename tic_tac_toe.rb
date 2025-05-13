@@ -25,6 +25,7 @@ class Game
   private
 
   def display_board
+    puts '=======board status========'
     @move_tracker.each do |element|
       puts " #{element[0]} | #{element[1]} | #{element[2]}  "
       puts '---+---+---' unless element == @move_tracker.last
@@ -68,13 +69,15 @@ end
 class Player
   attr_accessor :name, :marker
 
-  def initialize(name, marker)
-    @name = name
+  @@player_count = 0
+
+  def initialize(marker)
+    @@player_count += 1
+    print "Enter player#{@@player_count}'s name: "
+    @name = gets.chomp
     @marker = marker
   end
 end
 
 new_game = Game.new
-player1 = Player.new('Amir', 'X')
-player2 = Player.new('Sabir', '0')
-new_game.play_game([player1, player2])
+new_game.play_game([Player.new('X'), Player.new('0')])
